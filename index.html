@@ -194,30 +194,27 @@
                 </div>
             </div>
 
-            <!-- Profile Avatar with Floating, Glow and File Upload features -->
+            <!-- Profile Avatar (Only reads profile.jpg - No upload trigger for visitors) -->
             <div class="flex justify-center mb-6">
-                <!-- Clickable area to trigger image upload -->
-                <div class="profile-wrapper avatar-float cursor-pointer" onclick="triggerImageUpload()" title="اضغط لتغيير الصورة الشخصية">
+                <div class="profile-wrapper avatar-float">
                     <div class="w-28 h-28 rounded-full overflow-hidden border-2 border-black bg-neutral-900 flex items-center justify-center relative">
-                        <!-- Actual image element with a fallback placeholder -->
-                        <img id="profile-img" src="profile.jpg" onerror="this.style.display='none'; document.getElementById('placeholder-icon').style.display='flex';" class="w-full h-full object-cover" alt="Zetrix1831 Profile" />
+                        <!-- Try to load profile.jpg first -->
+                        <img id="profile-img" src="profile.jpg" onerror="this.style.display='none'; document.getElementById('placeholder-icon').style.display='flex';" class="w-full h-full object-cover" alt="Zetrix1831" />
                         
-                        <!-- Elegant placeholder icon for when the image is empty/not found -->
-                        <div id="placeholder-icon" class="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 text-white/50 hover:text-white transition-colors p-2">
-                            <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <!-- Elegant default developer placeholder if profile.jpg is missing -->
+                        <div id="placeholder-icon" class="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 text-white/50 p-2 select-none">
+                            <svg class="w-10 h-10 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                             </svg>
-                            <span class="text-[9px] text-center font-bold">اضغط لإضافة صورة</span>
+                            <span class="text-[9px] text-center font-bold">المطور الرئيسي</span>
                         </div>
                         
                         <div id="avatar-overlay" class="absolute inset-0 bg-red-500/10 mix-blend-color-dodge transition-all duration-500 pointer-events-none"></div>
                     </div>
                 </div>
-                <!-- Hidden file input -->
-                <input type="file" id="image-input" accept="image/*" class="hidden" onchange="previewImage(event)">
             </div>
 
-            <!-- Profile Identity with added Emoji -->
+            <!-- Profile Identity with Emoji -->
             <h1 id="main-title" class="text-3xl font-black text-white glow-text tracking-wide transition-all">Zetrix1831 🧑‍💻</h1>
             <p id="sub-title" class="text-xs text-gray-400 mt-2 mb-8 max-w-xs mx-auto leading-relaxed">
                 مرحباً بك في عالمي الخاص! تابعني على منصات التواصل الاجتماعي للمزيد من المغامرات والأسرار. 🔥🎮
@@ -334,27 +331,6 @@
     </main>
 
     <script>
-        // Image Upload Helper functions
-        function triggerImageUpload() {
-            document.getElementById('image-input').click();
-        }
-
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imgEl = document.getElementById('profile-img');
-                    const placeholderEl = document.getElementById('placeholder-icon');
-                    
-                    imgEl.src = e.target.result;
-                    imgEl.style.display = 'block';
-                    placeholderEl.style.display = 'none';
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
         // Active Theme state
         let currentTheme = 'slayer';
 
