@@ -4,342 +4,584 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zetrix1831 | Anime Hub</title>
-    <!-- Tailwind CSS for modern layout -->
+    <title>Zetrix1831 | Official Hub</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts (Cairo & Space Grotesk) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts (Cairo & Orbitron for futuristic look) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --neon-purple: #a855f7;
+            --neon-blue: #3b82f6;
+            --neon-pink: #ec4899;
+        }
+
         body {
-            font-family: 'Cairo', 'Space Grotesk', sans-serif;
-            background-color: #050508;
+            font-family: 'Cairo', sans-serif;
+            background-color: #030008;
             overflow-x: hidden;
+            color: #fff;
         }
 
-        /* Ambient Glow Backdrop */
-        .ambient-glow {
-            position: absolute;
-            width: 150vw;
-            height: 150vh;
-            top: -25%;
-            left: -25%;
-            background: radial-gradient(circle, rgba(239,68,68,0.1) 0%, rgba(59,130,246,0.05) 50%, rgba(0,0,0,0) 100%);
-            z-index: 1;
-            pointer-events: none;
-            transition: background 0.8s ease;
+        .font-cyber {
+            font-family: 'Orbitron', sans-serif;
         }
 
-        /* Theme Styles: Slayer (Default) */
-        .theme-slayer {
-            --primary: #ef4444; /* Crimson Red */
-            --primary-glow: rgba(239, 68, 68, 0.4);
-            --secondary: #f59e0b; /* Fire Orange */
-            --bg-card: rgba(15, 10, 10, 0.75);
-            --border-color: rgba(239, 68, 68, 0.3);
-        }
-
-        /* Theme Styles: Pirate (One Piece) */
-        .theme-pirate {
-            --primary: #3b82f6; /* Ocean Blue */
-            --primary-glow: rgba(59, 130, 246, 0.4);
-            --secondary: #eab308; /* Gold */
-            --bg-card: rgba(10, 15, 25, 0.75);
-            --border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        .anime-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--primary-glow);
-            backdrop-filter: blur(20px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Profile image glow & animation */
-        .profile-wrapper {
-            position: relative;
-        }
-        .profile-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            z-index: -1;
-            animation: rotateGlow 4s linear infinite;
-        }
-
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); filter: blur(4px); }
-            50% { filter: blur(8px); }
-            100% { transform: rotate(360deg); filter: blur(4px); }
-        }
-
-        .avatar-float {
-            animation: animeFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes animeFloat {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-10px) scale(1.02); }
-        }
-
-        /* Custom Social Buttons */
-        .social-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .social-btn:hover::before {
-            left: 100%;
-        }
-
-        .social-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary-glow);
-            background: rgba(255, 255, 255, 0.07);
-        }
-
-        /* Slash transition effect */
-        .slash-effect {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent 45%, var(--primary) 49%, #fff 50%, var(--primary) 51%, transparent 55%);
-            z-index: 99;
-            pointer-events: none;
-            opacity: 0;
-        }
-
-        @keyframes slash {
-            0% { left: -100%; opacity: 1; }
-            50% { opacity: 1; }
-            100% { left: 100%; opacity: 0; }
-        }
-
-        /* Neon Text Glow */
-        .glow-text {
-            text-shadow: 0 0 10px var(--primary-glow);
-        }
-
-        /* Particles canvas style */
-        #particles-canvas {
+        /* Ambient Nebula and Stars */
+        .nebula-glow {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            background: 
+                radial-gradient(circle at 50% 15%, rgba(120, 30, 210, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 10% 80%, rgba(50, 10, 120, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(160, 20, 180, 0.15) 0%, transparent 45%);
+            z-index: -2;
             pointer-events: none;
+        }
+
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+            opacity: 0.25;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        /* Cyberpunk grid lines at bottom */
+        .cyber-grid {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30vh;
+            background: linear-gradient(to bottom, transparent, rgba(5, 2, 15, 0.95)),
+                        linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 45px 45px, 45px 45px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: bottom;
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Avatar Glow Circle & Fire Effect */
+        .avatar-glow {
+            position: relative;
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.6), inset 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .avatar-glow::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #a855f7, #3b82f6, #ec4899, #a855f7);
+            z-index: -1;
+            animation: spinGlow 6s linear infinite;
+            filter: blur(8px);
+        }
+
+        @keyframes spinGlow {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Glassmorphic Cyber Cards */
+        .cyber-card {
+            background: rgba(10, 5, 20, 0.65);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(168, 85, 247, 0.1);
+            backdrop-filter: blur(16px);
+        }
+
+        .cyber-card:hover {
+            border-color: rgba(168, 85, 247, 0.45);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.25), inset 0 0 20px rgba(168, 85, 247, 0.15);
+        }
+
+        /* Glowing Platform Rows */
+        .link-row {
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            background: rgba(13, 8, 28, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .link-row::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            box-shadow: 0 0 25px var(--row-glow);
+        }
+
+        .link-row:hover::after {
+            opacity: 1;
+        }
+
+        .link-row:hover {
+            transform: scale(1.025) translateY(-2px);
+            border-color: var(--row-glow);
+            background: rgba(20, 12, 40, 0.95);
+        }
+
+        /* Sparkle Animation */
+        .pulse-slow {
+            animation: pulseSlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseSlow {
+            0%, 100% { transform: scale(1); opacity: 0.95; }
+            50% { transform: scale(1.01); opacity: 1; filter: brightness(1.15); }
+        }
+
+        /* Floating elements */
+        .float-anim {
+            animation: floatSlow 5s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030008;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7c3aed;
+            border-radius: 10px;
         }
     </style>
 </head>
-<body class="theme-slayer min-h-screen flex items-center justify-center p-4 relative overflow-y-auto">
+<body class="min-h-screen relative py-8 px-4 flex flex-col items-center justify-between">
 
-    <!-- Interactive Canvas Particles -->
-    <canvas id="particles-canvas"></canvas>
+    <!-- Ambient FX Elements -->
+    <div class="nebula-glow"></div>
+    <div class="starfield"></div>
+    <div class="cyber-grid"></div>
+    <canvas id="particles" class="fixed inset-0 pointer-events-none z-[-1]"></canvas>
 
-    <!-- Ambient glowing background circle -->
-    <div class="ambient-glow" id="ambient"></div>
+    <!-- Top Navigation Header -->
+    <header class="w-full max-w-5xl flex justify-between items-center mb-8 z-10">
+        <!-- Menu Icon -->
+        <button onclick="toggleSound()" class="cyber-card p-3 rounded-xl hover:scale-105 transition-all text-purple-400 hover:text-purple-300" title="تشغيل/كتم الموسيقى التفاعلية">
+            <svg id="sound-icon" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                <!-- Sound Off Icon default -->
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-11 7.77v2h4l5 5v-12l-5 5h-4z"/>
+            </svg>
+        </button>
 
-    <!-- Sword Slash Overlay for theme transitions -->
-    <div class="slash-effect" id="slash-overlay"></div>
+        <!-- Premium Golden Crown badge -->
+        <div class="cyber-card px-4 py-2 rounded-xl flex items-center gap-2 border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.15)] select-none">
+            <svg class="w-5 h-5 text-yellow-500 animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <span class="font-cyber font-bold text-xs tracking-wider text-yellow-500">Zetrix1831</span>
+        </div>
+    </header>
 
-    <!-- Main Container -->
-    <main class="w-full max-w-md z-10 transition-all duration-500">
+    <!-- Main Layout Grid -->
+    <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center z-10 mb-12">
         
-        <!-- Theme Switcher Tabs -->
-        <div class="flex justify-center mb-6 gap-2 bg-black/40 p-1.5 rounded-2xl border border-white/5 backdrop-blur-md">
-            <button onclick="switchTheme('slayer')" id="btn-slayer" class="flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all duration-300 bg-red-600/20 text-red-400 border border-red-500/30">
-                <!-- Katana Icon (Demon Slayer) -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                قاتل الشياطين
-            </button>
-            <button onclick="switchTheme('pirate')" id="btn-pirate" class="flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all duration-300 text-gray-400 hover:text-white">
-                <!-- Pirate Hat / Anchor Icon (One Piece) -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                ون بيس
-            </button>
+        <!-- Left Side Attribute Card -->
+        <div class="lg:col-span-3 order-2 lg:order-1 flex flex-col gap-4">
+            <div class="cyber-card p-5 rounded-2xl float-anim">
+                <div class="flex items-center gap-3 mb-4 text-purple-400 border-b border-purple-500/20 pb-2.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <span class="font-cyber font-black text-sm tracking-wider uppercase">ZETRIX1831</span>
+                </div>
+                <ul class="space-y-4 text-right">
+                    <li class="flex items-center justify-between text-xs text-gray-300">
+                        <span class="flex items-center gap-2 font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]"></span>
+                            منشئ محتوى
+                        </span>
+                        <span class="font-cyber text-gray-500">Content Creator</span>
+                    </li>
+                    <li class="flex items-center justify-between text-xs text-gray-300">
+                        <span class="flex items-center gap-2 font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shadow-[0_0_8px_#ec4899]"></span>
+                            مصمم كرافيك
+                        </span>
+                        <span class="font-cyber text-gray-500">Designer</span>
+                    </li>
+                    <li class="flex items-center justify-between text-xs text-gray-300">
+                        <span class="flex items-center gap-2 font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span>
+                            لاعب محترف
+                        </span>
+                        <span class="font-cyber text-gray-500">Gamer</span>
+                    </li>
+                    <li class="flex items-center justify-between text-xs text-gray-300">
+                        <span class="flex items-center gap-2 font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shadow-[0_0_8px_#06b6d4]"></span>
+                            محب للتقنية
+                        </span>
+                        <span class="font-cyber text-gray-500">Tech Lover</span>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Card Profile Panel -->
-        <div class="anime-card rounded-3xl p-6 text-center transition-all duration-500">
+        <!-- Center Identity Column -->
+        <div class="lg:col-span-6 order-1 lg:order-2 flex flex-col items-center text-center">
+            <!-- Moon Glow in Background -->
+            <div class="absolute w-40 h-40 bg-purple-600/15 rounded-full filter blur-[50px] -z-10 animate-pulse"></div>
+
+            <!-- Profile Avatar Ring with Neon Flame Particles -->
+            <div class="relative mb-6">
+                <div class="w-48 h-48 rounded-full overflow-hidden avatar-glow p-1 bg-black/60 flex items-center justify-center">
+                    <!-- Beautiful Vector Illustration of Cyber-Anime Character -->
+                    <svg class="w-full h-full text-purple-500/80" viewBox="0 0 100 100" fill="none">
+                        <!-- Dark background inside circle -->
+                        <circle cx="50" cy="50" r="48" fill="#0c071a" />
+                        <!-- Moon in avatar bg -->
+                        <circle cx="75" cy="30" r="10" fill="#a855f7" opacity="0.15" />
+                        <!-- Character shoulders & hood -->
+                        <path d="M20 90 C 25 70, 35 60, 50 60 C 65 60, 75 70, 80 90 Z" fill="#140d2b" />
+                        <path d="M25 90 C 30 75, 40 65, 50 65 C 60 65, 70 75, 75 90 Z" fill="#1b123a" />
+                        <!-- Inner Hood Dark Shadow -->
+                        <path d="M35 55 C 35 30, 65 30, 65 55 C 65 65, 35 65, 35 55 Z" fill="#080410" />
+                        <!-- Cyber Face mask and glowing eyes -->
+                        <path d="M42 48 L45 42 L55 42 L58 48 L50 56 Z" fill="#1c1236" />
+                        <!-- Left eye glow -->
+                        <ellipse cx="44" cy="45" rx="3" ry="1.2" fill="#ec4899" transform="rotate(-5 44 45)" />
+                        <ellipse cx="44" cy="45" rx="1.5" ry="0.6" fill="#fff" />
+                        <!-- Right eye glow -->
+                        <ellipse cx="56" cy="45" rx="3" ry="1.2" fill="#ec4899" transform="rotate(5 56 45)" />
+                        <ellipse cx="56" cy="45" rx="1.5" ry="0.6" fill="#fff" />
+                        <!-- Subtle hair strands under hood -->
+                        <path d="M48 34 Q 45 40 43 42" stroke="#a855f7" stroke-width="2" />
+                        <path d="M52 34 Q 55 40 57 42" stroke="#a855f7" stroke-width="2" />
+                        <path d="M50 32 L50 38" stroke="#ec4899" stroke-width="2" />
+                    </svg>
+                </div>
+
+                <!-- Absolute Superimposed Stylized Cyber-Neon "Z" Logo -->
+                <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/95 px-5 py-2.5 rounded-2xl border-2 border-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.7)] flex items-center justify-center">
+                    <svg class="w-10 h-10 filter drop-shadow-[0_0_6px_#a855f7]" viewBox="0 0 100 100" fill="none">
+                        <!-- Futuristic Z layout -->
+                        <path d="M20 25 H80 L35 75 H80" stroke="url(#gradient-z)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+                        <defs>
+                            <linearGradient id="gradient-z" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ec4899" />
+                                <stop offset="50%" stop-color="#a855f7" />
+                                <stop offset="100%" stop-color="#3b82f6" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Profile Identity Texts -->
+            <div class="mt-4 flex flex-col items-center gap-1">
+                <div class="flex items-center gap-2">
+                    <h1 class="text-4xl lg:text-5xl font-black tracking-wider text-white font-cyber glow-text select-all">ZETRIX1831</h1>
+                    <!-- Glowing Verified Badge -->
+                    <div class="bg-blue-500 text-white rounded-full p-1 shadow-[0_0_12px_#3b82f6] animate-pulse">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a.75.75 0 00-.708-.523.75.75 0 00-.507.291 10.1 10.1 0 00-1.811 4.41.75.75 0 00.355.772l3.418 2.051a.75.75 0 00.915-.178l3.1-3.69a.75.75 0 00-.095-1.054L6.267 3.455zM18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a.75.75 0 00-1.06 0L8.5 10.44 7.06 9a.75.75 0 10-1.06 1.06l2 2a.75.75 0 001.06 0l3.5-3.5a.75.75 0 000-1.06z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-sm font-semibold tracking-wide text-purple-300 flex items-center gap-1.5 mt-2">
+                    Connect with me on all platforms 🚀🚀
+                </p>
+                <!-- Double Diamond Seperator -->
+                <div class="flex items-center gap-1.5 mt-3 opacity-60">
+                    <span class="w-1.5 h-1.5 rotate-45 bg-purple-500"></span>
+                    <span class="w-2.5 h-2.5 rotate-45 bg-pink-500"></span>
+                    <span class="w-1.5 h-1.5 rotate-45 bg-purple-500"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side Quotes Card -->
+        <div class="lg:col-span-3 order-3 flex flex-col gap-4">
+            <div class="cyber-card p-5 rounded-2xl relative float-anim" style="animation-delay: 1.5s;">
+                <!-- Glowing Quotes icon -->
+                <div class="absolute -top-4 right-6 bg-pink-600/95 text-white p-1 px-3.5 rounded-lg text-lg font-bold font-cyber shadow-[0_0_15px_rgba(236,72,153,0.5)]">
+                    “
+                </div>
+                <div class="mt-2 text-right">
+                    <p class="text-sm font-cyber font-bold tracking-wider text-purple-400 mb-1">One Name</p>
+                    <p class="text-sm font-cyber font-bold tracking-wider text-pink-400 mb-1">Many Platforms</p>
+                    <p class="text-sm font-cyber font-bold tracking-wider text-blue-400">One Mission</p>
+                </div>
+                <!-- Neon Underline Decoration -->
+                <div class="w-12 h-1 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full mt-4 shadow-[0_0_10px_#ec4899]"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Interactive Social Rows Grid -->
+    <section class="w-full max-w-3xl space-y-4 mb-12 z-10">
+        
+        <!-- YouTube Row -->
+        <a href="https://youtube.com/@Zetrix1831" target="_blank" onmouseenter="playHover()" class="link-row flex items-center justify-between p-4.5 rounded-2xl cursor-pointer group" style="--row-glow: rgba(255, 0, 0, 0.45);">
+            <div class="flex items-center gap-4">
+                <!-- Glowing Logo Box -->
+                <div class="w-12 h-12 rounded-xl bg-red-600/10 flex items-center justify-center border border-red-500/20 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 text-red-500 fill-current" viewBox="0 0 24 24">
+                        <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.507a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.507 9.388.507 9.388.507s7.517 0 9.388-.507a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-3.5">
+                    <span class="text-sm lg:text-base font-black text-white font-cyber uppercase tracking-wider">YouTube</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-red-500/50"></span>
+                    <span class="text-xs text-gray-400 font-cyber font-medium tracking-wide">Zetrix1831</span>
+                </div>
+            </div>
+            <svg class="w-5 h-5 text-gray-500 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </a>
+
+        <!-- TikTok Row -->
+        <a href="https://tiktok.com/@Zetrix1831" target="_blank" onmouseenter="playHover()" class="link-row flex items-center justify-between p-4.5 rounded-2xl cursor-pointer group" style="--row-glow: rgba(0, 242, 254, 0.45);">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-cyan-600/10 flex items-center justify-center border border-cyan-500/20 group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5 text-cyan-400 fill-current" viewBox="0 0 24 24">
+                        <path d="M12.525.02c1.31-.03 2.61-.01 3.91-.02.08 1.53.63 3.02 1.63 4.14.94.99 2.23 1.57 3.59 1.74v3.83c-1.39-.03-2.77-.4-3.96-1.15-.43-.27-.82-.6-1.17-.97-.04 1.84-.01 3.68-.02 5.52 0 1.25-.26 2.49-.77 3.63-.44.97-1.12 1.82-1.97 2.45-1.15.86-2.55 1.34-3.99 1.36-1.85.05-3.7-.62-5.06-1.88-1.55-1.39-2.31-3.57-1.95-5.64.29-1.74 1.24-3.32 2.66-4.32 1.25-.9 2.78-1.34 4.32-1.22.01 1.33.02 2.66.02 3.99-.9-.23-1.87-.04-2.61.54-.59.43-.99 1.09-1.09 1.81-.17 1.03.35 2.08 1.24 2.58.74.42 1.63.45 2.39.06.66-.32 1.13-.95 1.25-1.67.04-2.45.01-4.9.02-7.35z"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-3.5">
+                    <span class="text-sm lg:text-base font-black text-white font-cyber uppercase tracking-wider">TikTok</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-400/50"></span>
+                    <span class="text-xs text-gray-400 font-cyber font-medium tracking-wide">Zetrix1831</span>
+                </div>
+            </div>
+            <svg class="w-5 h-5 text-gray-500 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </a>
+
+        <!-- Instagram Row -->
+        <a href="https://instagram.com/Zetrix1831" target="_blank" onmouseenter="playHover()" class="link-row flex items-center justify-between p-4.5 rounded-2xl cursor-pointer group" style="--row-glow: rgba(236, 72, 153, 0.45);">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-pink-600/10 flex items-center justify-center border border-pink-500/20 group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5 text-pink-500 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-3.5">
+                    <span class="text-sm lg:text-base font-black text-white font-cyber uppercase tracking-wider">Instagram</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-pink-500/50"></span>
+                    <span class="text-xs text-gray-400 font-cyber font-medium tracking-wide">Zetrix1831</span>
+                </div>
+            </div>
+            <svg class="w-5 h-5 text-gray-500 group-hover:text-pink-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </a>
+
+        <!-- X (Twitter) Row -->
+        <a href="https://x.com/Zetrix1831" target="_blank" onmouseenter="playHover()" class="link-row flex items-center justify-between p-4.5 rounded-2xl cursor-pointer group" style="--row-glow: rgba(255, 255, 255, 0.35);">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-neutral-900 flex items-center justify-center border border-white/10 group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5 text-white fill-current" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-3.5">
+                    <span class="text-sm lg:text-base font-black text-white font-cyber uppercase tracking-wider">X (Twitter)</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+                    <span class="text-xs text-gray-400 font-cyber font-medium tracking-wide">Zetrix1831</span>
+                </div>
+            </div>
+            <svg class="w-5 h-5 text-gray-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </a>
+
+        <!-- Snapchat Row -->
+        <a href="#" target="_blank" onmouseenter="playHover()" class="link-row flex items-center justify-between p-4.5 rounded-2xl cursor-pointer group" style="--row-glow: rgba(255, 252, 0, 0.45);">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-yellow-400/10 flex items-center justify-center border border-yellow-500/20 group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2.163c-3.155 0-4.664 1.583-4.664 4.09 0 1.25.467 2.083.467 2.083s-.292.167-.5.167c-.208 0-.417-.167-.417-.167S6 7.417 6 6.25c0-3.333 2.5-4.583 6-4.583s6 1.25 6 4.583c0 1.167-.833 2.083-.833 2.083s-.208.167-.417.167c-.208 0-.5-.167-.5-.167s.467-.833.467-2.083c0-2.507-1.509-4.09-4.664-4.09z" opacity="0.1"/>
+                        <path d="M12 .587c-3.714 0-5.834 2.222-5.834 5.378 0 .809.117 1.636.331 2.451a.69.69 0 01-.252.8c-.378.291-1.045.859-1.045 1.77 0 .546.29.982.859 1.295.342.189.704.167.97.106.18-.328.431-.774.721-1.258.114-.191.24-.366.376-.522a16.4 16.4 0 004.024 1.134v.054c0 .484.341 1.077 1.037 1.61.328.252.753.407 1.196.407.443 0 .868-.155 1.196-.407.696-.533 1.037-1.126 1.037-1.61v-.054a16.4 16.4 0 004.024-1.134c.136.156.262.331.376.522.29.484.541.93.721 1.258.266.061.628.083.97-.106.569-.313.859-.749.859-1.295 0-.911-.667-1.479-1.045-1.77a.69.69 0 01-.252-.8c.214-.815.331-1.642.331-2.451 0-3.156-2.12-5.378-5.834-5.378z" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-3.5">
+                    <span class="text-sm lg:text-base font-black text-white font-cyber uppercase tracking-wider">Snapchat</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-yellow-400/50"></span>
+                    <span class="text-xs text-gray-400 font-cyber font-medium tracking-wide">Zetrix1831</span>
+                </div>
+            </div>
+            <svg class="w-5 h-5 text-gray-500 group-hover:text-yellow-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </a>
+
+        <!-- Twitch Row -->
+        <a href="#" target="_blank" onmouseenter="playHover()" class="link-row flex items-center justify-between p-4.5 rounded-2xl cursor-pointer group" style="--row-glow: rgba(145, 70, 255, 0.45);">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-purple-600/10 flex items-center justify-center border border-purple-500/20 group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5 text-purple-400 fill-current" viewBox="0 0 24 24">
+                        <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-3.5">
+                    <span class="text-sm lg:text-base font-black text-white font-cyber uppercase tracking-wider">Twitch</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500/50"></span>
+                    <span class="text-xs text-gray-400 font-cyber font-medium tracking-wide">Zetrix1831</span>
+                </div>
+            </div>
+            <svg class="w-5 h-5 text-gray-500 group-hover:text-purple-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </a>
+
+        <!-- Facebook Row -->
+        <a href="https://www.facebook.com/share/1brAP57w7f/" target="_blank" onmouseenter="playHover()" class="link-row flex items-center justify-between p-4.5 rounded-2xl cursor-pointer group" style="--row-glow: rgba(24, 119, 242, 0.45);">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5 text-blue-500 fill-current" viewBox="0 0 24 24">
+                        <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-3.5">
+                    <span class="text-sm lg:text-base font-black text-white font-cyber uppercase tracking-wider">Facebook</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500/50"></span>
+                    <span class="text-xs text-gray-400 font-cyber font-medium tracking-wide">Zetrix1831</span>
+                </div>
+            </div>
+            <svg class="w-5 h-5 text-gray-500 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </a>
+
+    </section>
+
+    <!-- Stat Counter Cards -->
+    <section class="w-full max-w-3xl grid grid-cols-3 gap-4 mb-12 z-10 text-center">
+        <!-- Quality Card -->
+        <div class="cyber-card p-4 rounded-2xl flex flex-col items-center justify-center gap-1.5">
+            <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <span class="text-[10px] text-gray-400 font-bold tracking-wider">Quality</span>
+            <span class="font-cyber font-black text-sm lg:text-base text-white">100%</span>
+        </div>
+
+        <!-- Active Card -->
+        <div class="cyber-card p-4 rounded-2xl flex flex-col items-center justify-center gap-1.5">
+            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            <span class="text-[10px] text-gray-400 font-bold tracking-wider">Active</span>
+            <span class="font-cyber font-black text-sm lg:text-base text-white">24/7</span>
+        </div>
+
+        <!-- Community Card -->
+        <div class="cyber-card p-4 rounded-2xl flex flex-col items-center justify-center gap-1.5">
+            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            <span class="text-[10px] text-gray-400 font-bold tracking-wider">Community</span>
+            <span class="font-cyber font-black text-sm lg:text-base text-white">Growing</span>
+        </div>
+    </section>
+
+    <!-- Professional Footer Area -->
+    <footer class="w-full max-w-4xl z-10">
+        <div class="cyber-card p-5 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4">
             
-            <!-- Badges top row -->
-            <div class="flex justify-between items-center mb-6">
-                <!-- Swapped LEVEL 99 with the customized User developer Tag -->
-                <span class="text-xs px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-gray-200 font-bold tracking-wide">Zetrix1831 🧑‍💻</span>
-                <!-- Custom status indicator -->
-                <div class="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">متصل الآن</span>
+            <!-- Logo Section left -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-purple-500/15 border border-purple-500/30 rounded-xl flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.3)]">
+                    <svg class="w-6 h-6 text-purple-400 filter drop-shadow-[0_0_3px_#a855f7]" viewBox="0 0 100 100" fill="none">
+                        <path d="M20 25 H80 L35 75 H80" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="text-right">
+                    <span class="block font-cyber font-black text-sm tracking-widest text-white">Zetrix1831</span>
+                    <span class="block text-[9px] text-gray-500">Thanks for visiting! 💜</span>
                 </div>
             </div>
 
-            <!-- Profile Avatar (Only reads profile.jpg - No upload trigger for visitors) -->
-            <div class="flex justify-center mb-6">
-                <div class="profile-wrapper avatar-float">
-                    <div class="w-28 h-28 rounded-full overflow-hidden border-2 border-black bg-neutral-900 flex items-center justify-center relative">
-                        <!-- Try to load profile.jpg first -->
-                        <img id="profile-img" src="profile.jpg" onerror="this.style.display='none'; document.getElementById('placeholder-icon').style.display='flex';" class="w-full h-full object-cover" alt="Zetrix1831" />
-                        
-                        <!-- Elegant default developer placeholder if profile.jpg is missing -->
-                        <div id="placeholder-icon" class="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 text-white/50 p-2 select-none">
-                            <svg class="w-10 h-10 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                            </svg>
-                            <span class="text-[9px] text-center font-bold">المطور الرئيسي</span>
-                        </div>
-                        
-                        <div id="avatar-overlay" class="absolute inset-0 bg-red-500/10 mix-blend-color-dodge transition-all duration-500 pointer-events-none"></div>
-                    </div>
-                </div>
-            </div>
+            <!-- Separators on Mobile -->
+            <div class="w-full sm:w-px h-px sm:h-8 bg-purple-500/20"></div>
 
-            <!-- Profile Identity with Emoji -->
-            <h1 id="main-title" class="text-3xl font-black text-white glow-text tracking-wide transition-all">Zetrix1831 🧑‍💻</h1>
-            <p id="sub-title" class="text-xs text-gray-400 mt-2 mb-8 max-w-xs mx-auto leading-relaxed">
-                مرحباً بك في عالمي الخاص! تابعني على منصات التواصل الاجتماعي للمزيد من المغامرات والأسرار. 🔥🎮
-            </p>
-
-            <!-- Social Links Stack -->
-            <div class="space-y-3.5" id="links-container">
-                
-                <!-- Facebook Link -->
-                <a href="https://www.facebook.com/share/1brAP57w7f/" target="_blank" class="social-btn flex items-center justify-between p-4 rounded-2xl group">
-                    <div class="flex items-center gap-3.5">
-                        <div class="p-2.5 rounded-xl bg-blue-600/10 text-blue-500 group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
-                            </svg>
-                        </div>
-                        <div class="text-right">
-                            <span class="block text-sm font-bold text-white">Facebook</span>
-                            <span class="block text-[10px] text-gray-500 group-hover:text-gray-400">انضم لمجتمعنا على فيسبوك</span>
-                        </div>
-                    </div>
-                    <svg class="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </a>
-
-                <!-- Instagram Link -->
-                <a href="https://instagram.com/Zetrix1831" target="_blank" class="social-btn flex items-center justify-between p-4 rounded-2xl group">
-                    <div class="flex items-center gap-3.5">
-                        <div class="p-2.5 rounded-xl bg-pink-600/10 text-pink-500 group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-                            </svg>
-                        </div>
-                        <div class="text-right">
-                            <span class="block text-sm font-bold text-white">Instagram</span>
-                            <span class="block text-[10px] text-gray-500 group-hover:text-gray-400">تابع يومياتي الحماسية</span>
-                        </div>
-                    </div>
-                    <svg class="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </a>
-
-                <!-- TikTok Link -->
-                <a href="https://tiktok.com/@Zetrix1831" target="_blank" class="social-btn flex items-center justify-between p-4 rounded-2xl group">
-                    <div class="flex items-center gap-3.5">
-                        <div class="p-2.5 rounded-xl bg-cyan-600/10 text-cyan-400 group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                <path d="M12.525.02c1.31-.03 2.61-.01 3.91-.02.08 1.53.63 3.02 1.63 4.14.94.99 2.23 1.57 3.59 1.74v3.83c-1.39-.03-2.77-.4-3.96-1.15-.43-.27-.82-.6-1.17-.97-.04 1.84-.01 3.68-.02 5.52 0 1.25-.26 2.49-.77 3.63-.44.97-1.12 1.82-1.97 2.45-1.15.86-2.55 1.34-3.99 1.36-1.85.05-3.7-.62-5.06-1.88-1.55-1.39-2.31-3.57-1.95-5.64.29-1.74 1.24-3.32 2.66-4.32 1.25-.9 2.78-1.34 4.32-1.22.01 1.33.02 2.66.02 3.99-.9-.23-1.87-.04-2.61.54-.59.43-.99 1.09-1.09 1.81-.17 1.03.35 2.08 1.24 2.58.74.42 1.63.45 2.39.06.66-.32 1.13-.95 1.25-1.67.04-2.45.01-4.9.02-7.35z"/>
-                            </svg>
-                        </div>
-                        <div class="text-right">
-                            <span class="block text-sm font-bold text-white">TikTok</span>
-                            <span class="block text-[10px] text-gray-500 group-hover:text-gray-400">مقاطع أنمي قصيرة ومميزة</span>
-                        </div>
-                    </div>
-                    <svg class="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </a>
-
-                <!-- YouTube Link -->
-                <a href="https://youtube.com/@Zetrix1831" target="_blank" class="social-btn flex items-center justify-between p-4 rounded-2xl group">
-                    <div class="flex items-center gap-3.5">
-                        <div class="p-2.5 rounded-xl bg-red-600/10 text-red-500 group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.507a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.507 9.388.507 9.388.507s7.517 0 9.388-.507a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                            </svg>
-                        </div>
-                        <div class="text-right">
-                            <span class="block text-sm font-bold text-white">YouTube</span>
-                            <span class="block text-[10px] text-gray-500 group-hover:text-gray-400">شروحات ومراجعات أسطورية</span>
-                        </div>
-                    </div>
-                    <svg class="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </a>
-
-                <!-- X (Twitter) Link -->
-                <a href="https://x.com/Zetrix1831" target="_blank" class="social-btn flex items-center justify-between p-4 rounded-2xl group">
-                    <div class="flex items-center gap-3.5">
-                        <div class="p-2.5 rounded-xl bg-neutral-900 text-white border border-white/10 group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                        </div>
-                        <div class="text-right">
-                            <span class="block text-sm font-bold text-white">X (Twitter)</span>
-                            <span class="block text-[10px] text-gray-500 group-hover:text-gray-400">آخر الأخبار والتغريدات المباشرة</span>
-                        </div>
-                    </div>
-                    <svg class="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </a>
-
-                <!-- Discord Link -->
-                <a href="https://discord.com" target="_blank" class="social-btn flex items-center justify-between p-4 rounded-2xl group">
-                    <div class="flex items-center gap-3.5">
-                        <div class="p-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/>
-                            </svg>
-                        </div>
-                        <div class="text-right">
-                            <span class="block text-sm font-bold text-white">Discord</span>
-                            <span class="block text-[10px] text-gray-500 group-hover:text-gray-400">الدردشة واللعب الجماعي</span>
-                        </div>
-                    </div>
-                    <svg class="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </a>
-
-            </div>
-
-            <!-- Custom Anime Footer Quote -->
-            <div class="mt-8 pt-6 border-t border-white/5 text-gray-500 text-[10px] flex justify-between items-center">
-                <span>تم التصميم بكل شغف 🩸⚔️</span>
-                <span class="font-mono" id="footer-stamp">DEMON SLAYER MODE</span>
+            <!-- Copyright area -->
+            <div class="text-center sm:text-left text-[10px] text-gray-500 font-cyber space-y-1">
+                <p>&copy; 2026 Zetrix1831</p>
+                <p class="tracking-wide">All Rights Reserved.</p>
             </div>
 
         </div>
-    </main>
+    </footer>
 
+    <!-- Web Audio API for highly premium SFX -->
     <script>
-        // Active Theme state
-        let currentTheme = 'slayer';
+        let isSoundMuted = true;
+        let audioCtx = null;
 
-        // Particle configuration and Canvas Engine
-        const canvas = document.getElementById('particles-canvas');
+        function toggleSound() {
+            isSoundMuted = !isSoundMuted;
+            const soundIcon = document.getElementById('sound-icon');
+            
+            if (isSoundMuted) {
+                // Sound muted icon
+                soundIcon.innerHTML = `<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-11 7.77v2h4l5 5v-12l-5 5h-4z"/>`;
+            } else {
+                // Sound playing icon
+                soundIcon.innerHTML = `<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>`;
+                initAudio();
+                // Play entry sound
+                playFuturisticBeep(180, 0.1, 'sine');
+                setTimeout(() => playFuturisticBeep(320, 0.15, 'triangle'), 120);
+            }
+        }
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playFuturisticBeep(freq, duration, type) {
+            if (isSoundMuted || !audioCtx) return;
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                osc.type = type || 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                
+                gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                console.log("Audio feedback failed:", e);
+            }
+        }
+
+        function playHover() {
+            playFuturisticBeep(650, 0.08, 'sine');
+        }
+
+        // Particle Canvas Background Loop
+        const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let particleArray = [];
 
-        // Handle Resize
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -347,179 +589,58 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Particles Class (Can render both Sakura leaves & Fire embers)
         class Particle {
             constructor() {
                 this.reset();
+                this.y = Math.random() * canvas.height; // Spread initially
             }
-
             reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height - canvas.height;
-                this.size = Math.random() * (currentTheme === 'slayer' ? 4 : 5) + 2;
-                this.speedX = Math.random() * 1.5 - 0.75;
-                this.speedY = Math.random() * 1.5 + 1;
-                this.density = Math.random() * 30 + 10;
-                
-                // Color variations depending on the anime theme
-                if (currentTheme === 'slayer') {
-                    const choice = Math.random();
-                    if (choice < 0.5) {
-                        this.color = `rgba(239, 68, 68, ${Math.random() * 0.4 + 0.3})`; // Red
-                    } else if (choice < 0.8) {
-                        this.color = `rgba(244, 114, 182, ${Math.random() * 0.4 + 0.3})`; // Sakura pink
-                    } else {
-                        this.color = `rgba(245, 158, 11, ${Math.random() * 0.5 + 0.4})`; // Fire Spark
-                    }
-                } else {
-                    const choice = Math.random();
-                    if (choice < 0.5) {
-                        this.color = `rgba(59, 130, 246, ${Math.random() * 0.4 + 0.3})`; // Navy/Blue
-                    } else if (choice < 0.8) {
-                        this.color = `rgba(34, 211, 238, ${Math.random() * 0.4 + 0.3})`; // Cyan Haki
-                    } else {
-                        this.color = `rgba(234, 179, 8, ${Math.random() * 0.5 + 0.4})`; // Gold/Yellow Treasure
-                    }
-                }
-                
-                this.rotation = Math.random() * 360;
-                this.rotationSpeed = Math.random() * 2 - 1;
+                this.y = canvas.height + 10;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedY = -(Math.random() * 0.8 + 0.3);
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.color = Math.random() > 0.5 ? '#a855f7' : '#ec4899';
             }
-
-            update(mouse) {
+            update() {
                 this.y += this.speedY;
                 this.x += this.speedX;
-                this.rotation += this.rotationSpeed;
-
-                // Simple interaction with cursor touch
-                if (mouse.x !== null && mouse.y !== null) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        const forceDirectionX = dx / distance;
-                        const forceDirectionY = dy / distance;
-                        const force = (100 - distance) / 100;
-                        this.x -= forceDirectionX * force * 3;
-                        this.y -= forceDirectionY * force * 3;
-                    }
-                }
-
-                // If particle leaves screen, reset it to the top
-                if (this.y > canvas.height || this.x < -20 || this.x > canvas.width + 20) {
+                if (this.y < -10) {
                     this.reset();
                 }
             }
-
             draw() {
                 ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
                 ctx.fillStyle = this.color;
-                
-                if (currentTheme === 'slayer') {
-                    // Sakura Leaf shape
-                    ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    ctx.quadraticCurveTo(this.size, -this.size, this.size * 2, 0);
-                    ctx.quadraticCurveTo(this.size, this.size, 0, 0);
-                    ctx.fill();
-                } else {
-                    // Bubble / Haki Aura sphere shape
-                    ctx.beginPath();
-                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-                    ctx.shadowBlur = 10;
-                    ctx.shadowColor = this.color;
-                    ctx.fill();
-                }
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
                 ctx.restore();
             }
         }
 
-        // Track mouse movement
-        const mouse = { x: null, y: null };
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-        window.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-        window.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 0) {
-                mouse.x = e.touches[0].clientX;
-                mouse.y = e.touches[0].clientY;
-            }
-        });
-        window.addEventListener('touchend', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        // Initialize particles
-        function init() {
-            particles = [];
-            const count = Math.min(window.innerWidth / 15, 80);
+        function initParticles() {
+            particleArray = [];
+            const count = Math.min(window.innerWidth / 12, 60);
             for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
+                particleArray.push(new Particle());
             }
         }
-        init();
+        initParticles();
 
-        // Animation Loop
-        function animate() {
+        function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update(mouse);
-                particles[i].draw();
+            for (let i = 0; i < particleArray.length; i++) {
+                particleArray[i].update();
+                particleArray[i].draw();
             }
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateParticles);
         }
-        animate();
-
-        // Theme Switcher Logic
-        function switchTheme(theme) {
-            if (currentTheme === theme) return;
-            
-            const slash = document.getElementById('slash-overlay');
-            slash.style.animation = 'none';
-            void slash.offsetWidth; 
-            slash.style.animation = 'slash 0.8s ease-out forwards';
-
-            setTimeout(() => {
-                currentTheme = theme;
-                const body = document.body;
-                const btnSlayer = document.getElementById('btn-slayer');
-                const btnPirate = document.getElementById('btn-pirate');
-                const ambient = document.getElementById('ambient');
-                const subTitle = document.getElementById('sub-title');
-                const footerStamp = document.getElementById('footer-stamp');
-                const avatarOverlay = document.getElementById('avatar-overlay');
-
-                if (theme === 'slayer') {
-                    body.className = "theme-slayer min-h-screen flex items-center justify-center p-4 relative overflow-y-auto";
-                    btnSlayer.className = "flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all duration-300 bg-red-600/20 text-red-400 border border-red-500/30";
-                    btnPirate.className = "flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-2 text-sm font-bold text-gray-400 hover:text-white transition-all duration-300";
-                    ambient.style.background = "radial-gradient(circle, rgba(239,68,68,0.12) 0%, rgba(59,130,246,0.02) 50%, rgba(0,0,0,0) 100%)";
-                    subTitle.innerHTML = "مرحباً بك في عالمي الخاص! تابعني على منصات التواصل الاجتماعي للمزيد من المغامرات والأسرار. 🔥🎮";
-                    footerStamp.innerHTML = "DEMON SLAYER MODE";
-                    avatarOverlay.className = "absolute inset-0 bg-red-500/10 mix-blend-color-dodge transition-all duration-500";
-                } else {
-                    body.className = "theme-pirate min-h-screen flex items-center justify-center p-4 relative overflow-y-auto";
-                    btnPirate.className = "flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all duration-300 bg-blue-600/20 text-blue-400 border border-blue-500/30";
-                    btnSlayer.className = "flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-2 text-sm font-bold text-gray-400 hover:text-white transition-all duration-300";
-                    ambient.style.background = "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(234,179,8,0.03) 50%, rgba(0,0,0,0) 100%)";
-                    subTitle.innerHTML = "انطلق معي في رحلة البحث عن الكنز العظيم! الروابط في الأسفل هي بوصلتنا نحو المغامرة القادمة. 🏴‍☠️⚓";
-                    footerStamp.innerHTML = "ONE PIECE MODE";
-                    avatarOverlay.className = "absolute inset-0 bg-blue-500/15 mix-blend-color-dodge transition-all duration-500";
-                }
-
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].reset();
-                }
-            }, 300);
-        }
+        animateParticles();
     </script>
 </body>
 </html>
